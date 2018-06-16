@@ -12,7 +12,7 @@ class SplashActivity : AppCompatActivity() {
         val config = EasySplashScreen(this@SplashActivity)
                 .withFullScreen()
                 .withTargetActivity(MainActivity::class.java)
-                .withSplashTimeOut(5000)
+                .withSplashTimeOut(2000)
                 .withLogo(R.drawable.unicorn)
                 .create()
 
