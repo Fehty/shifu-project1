@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
 
 class RecyclerViewAdapter(var mainActivity: MainActivity) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
@@ -28,15 +29,22 @@ class RecyclerViewAdapter(var mainActivity: MainActivity) : RecyclerView.Adapter
         holder.bind(list[position])
     }
 
+    fun removeItem(position: Int) {
+        list.removeAt(position)
+        notifyItemRemoved(position)
+    }
+
     inner class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
 
         private var item = view.findViewById<TextView>(R.id.item)
+        var viewBackground = view.findViewById<RelativeLayout>(R.id.viewBackground)!!
+        var viewForeground = view.findViewById<RelativeLayout>(R.id.viewForeground)!!
 
         fun bind(dataItem: String) {
             item.text = dataItem
 
             item.setOnClickListener {
-                mainActivity.goToFragment()
+                mainActivity.goToActivity()
             }
         }
     }
