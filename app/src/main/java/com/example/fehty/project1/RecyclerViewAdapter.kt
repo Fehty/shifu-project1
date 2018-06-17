@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
 
+
 class RecyclerViewAdapter(var mainActivity: MainActivity) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     private var list = mutableListOf<String>()
@@ -43,9 +44,10 @@ class RecyclerViewAdapter(var mainActivity: MainActivity) : RecyclerView.Adapter
         fun bind(dataItem: String) {
             item.text = dataItem
 
-            item.setOnClickListener {
+            view.setOnClickListener {
                 mainActivity.goToActivity()
             }
+
         }
     }
 }

@@ -36,6 +36,6 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/activity_template_for_list"
             tool:text="@string/activity_template_for_list_text" />
-    </RelativeLayout>
 
+    </RelativeLayout>
 </FrameLayout>
