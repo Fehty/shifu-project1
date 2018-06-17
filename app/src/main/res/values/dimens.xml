@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="activity_main_text_size">25sp</dimen>
+    <dimen name="activity_template_for_list">25sp</dimen>
+    <dimen name="margin_8">8dp</dimen>
 </resources>
