@@ -30,7 +30,7 @@ class AddItemFragment(private var mainActivity: MainActivity?) : Fragment() {
 
             if (addItemText.text.isNotEmpty()) {
                 val bundle = Bundle()
-                bundle.putString("key", addItemText.text.toString())
+                bundle.putString("newItem", addItemText.text.toString())
                 listFragment.arguments = bundle
             }
 

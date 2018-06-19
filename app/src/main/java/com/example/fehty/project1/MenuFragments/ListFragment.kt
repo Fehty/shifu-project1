@@ -54,7 +54,7 @@ class ListFragment : Fragment(), RecyclerItemTouchHelperListener {
         val bundle: Bundle?
         if (arguments != null) {
             bundle = arguments
-            list.add(bundle!!.getString("key"))
+            list.add(bundle!!.getString("newItem"))
         }
 
         recyclerView.adapter = adapter
