@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_add_item.*
 
 @SuppressLint("ValidFragment")
-class AddItemFragment(private var mainActivity: MainActivity) : Fragment() {
+class AddItemFragment(private var mainActivity: MainActivity?) : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -30,7 +30,7 @@ class AddItemFragment(private var mainActivity: MainActivity) : Fragment() {
 
             if (addItemText.text.isNotEmpty()) {
                 val bundle = Bundle()
-                bundle.putString("item", addItemText.text.toString())
+                bundle.putString("key", addItemText.text.toString())
                 listFragment.arguments = bundle
             }
 
@@ -46,12 +46,18 @@ class AddItemFragment(private var mainActivity: MainActivity) : Fragment() {
     }
 
     private fun exitFromAdditionItems() {
-        mainActivity.floatingActionButton.show()
-        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        activity!!.floatingActionButton.show()
+        mainActivity?.supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
         fragmentManager
                 ?.beginTransaction()
                 ?.addToBackStack(null)
                 ?.replace(R.id.container, listFragment)
                 ?.commit()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        addItemText.clearFocus()
     }
 }

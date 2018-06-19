@@ -38,10 +38,9 @@ class ListFragment : Fragment(), RecyclerItemTouchHelperListener {
         adapter.removeItem(viewHolder.adapterPosition)
     }
 
-    fun goToActivity() {
-        val fragmentBack = BackFragment()
+    fun goToBackFragment() {
         fragmentManager?.beginTransaction()
-                ?.replace(R.id.container, fragmentBack)
+                ?.replace(R.id.container, BackFragment())
                 ?.commit()
     }
 
@@ -52,10 +51,10 @@ class ListFragment : Fragment(), RecyclerItemTouchHelperListener {
             addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         }
 
+        val bundle: Bundle?
         if (arguments != null) {
-            val bundle: Bundle? = arguments
-            bundle!!.getString("item")
-            list.add(bundle.getString("item"))
+            bundle = arguments
+            list.add(bundle!!.getString("key"))
         }
 
         recyclerView.adapter = adapter

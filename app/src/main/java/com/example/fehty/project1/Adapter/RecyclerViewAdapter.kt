@@ -46,7 +46,7 @@ class RecyclerViewAdapter(var listFragment: ListFragment) : RecyclerView.Adapter
             item.text = dataItem
 
             view.setOnClickListener {
-                listFragment.goToActivity()
+                listFragment.goToBackFragment()
             }
 
         }

@@ -16,20 +16,24 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(toolBar)
+
         replaceThisFragmentTo(ListFragment())
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        floatingActionButton.show()
 
         floatingActionButton.setOnClickListener {
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            floatingActionButton.hide()
             replaceThisFragmentTo(AddItemFragment(this))
         }
 
         profileIcon.setOnClickListener {
-            replaceThisFragmentTo(ProfileFragment())
+            replaceThisFragmentTo(ProfileFragment(this))
         }
     }
 
     private fun replaceThisFragmentTo(fragment: Fragment) {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        floatingActionButton.hide()
+
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit()
