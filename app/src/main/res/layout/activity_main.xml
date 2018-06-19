@@ -10,7 +10,8 @@
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark">
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
+        android:background="@color/colorPrimary">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -18,7 +19,8 @@
 
             <ImageButton
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
+                android:layout_width="59dp"
+                android:id="@+id/profileIcon"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
@@ -42,17 +44,5 @@
         android:src="@drawable/ic_add_white"
         app:backgroundTint="@color/colorPrimary"
         app:fabSize="normal" />
-
-    <!--<android.support.design.widget.BottomNavigationView-->
-    <!--android:id="@+id/bottomNavigationView"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:background="@color/colorPrimary"-->
-    <!--app:itemIconTint="@drawable/bottom_navigation_item_state_selector"-->
-    <!--app:itemTextColor="@drawable/bottom_navigation_item_state_selector"-->
-    <!--app:menu="@menu/menu_bottom">-->
-
-    <!--</android.support.design.widget.BottomNavigationView>-->
 </RelativeLayout>
 
