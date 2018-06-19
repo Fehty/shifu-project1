@@ -1,4 +1,4 @@
-package com.example.fehty.project1
+package com.example.fehty.project1.Adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.example.fehty.project1.MenuFragments.ListFragment
+import com.example.fehty.project1.R
 
-
-class RecyclerViewAdapter(var mainActivity: MainActivity) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter(var listFragment: ListFragment) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
     private var list = mutableListOf<String>()
 
@@ -17,8 +18,8 @@ class RecyclerViewAdapter(var mainActivity: MainActivity) : RecyclerView.Adapter
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewAdapter.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.activity_template_for_list, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_template_for_list, parent, false)
         return ViewHolder(view)
     }
 
@@ -45,7 +46,7 @@ class RecyclerViewAdapter(var mainActivity: MainActivity) : RecyclerView.Adapter
             item.text = dataItem
 
             view.setOnClickListener {
-                mainActivity.goToActivity()
+                listFragment.goToActivity()
             }
 
         }

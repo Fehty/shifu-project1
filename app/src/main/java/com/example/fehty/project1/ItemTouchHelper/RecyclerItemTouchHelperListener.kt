@@ -1,4 +1,4 @@
-package com.example.fehty.project1
+package com.example.fehty.project1.ItemTouchHelper
 
 import android.support.v7.widget.RecyclerView
 

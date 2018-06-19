@@ -1,7 +1,8 @@
-package com.example.fehty.project1
+package com.example.fehty.project1.Activity
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.example.fehty.project1.R
 import gr.net.maroulis.library.EasySplashScreen
 
 class SplashActivity : AppCompatActivity() {
