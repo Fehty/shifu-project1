@@ -44,7 +44,6 @@ class RecyclerViewAdapter(var listFragment: ListFragment) : RecyclerView.Adapter
 
         fun bind(dataItem: String) {
             item.text = dataItem
-
             view.setOnClickListener {
                 listFragment.goToBackFragment()
             }

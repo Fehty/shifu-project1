@@ -8,4 +8,5 @@
     <dimen name="activity_template_for_list_foreground_padding">10dp</dimen>
     <dimen name="fragment_add_item_edit_text_width">225dp</dimen>
     <dimen name="fragment_add_item_edit_text_margin_top">76dp</dimen>
+    <dimen name="activity_main_toolbar_image_button_width">59dp</dimen>
 </resources>
