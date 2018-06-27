@@ -7,6 +7,8 @@ import com.example.fehty.project1.MenuFragments.AddItemFragment
 import com.example.fehty.project1.MenuFragments.ListFragment
 import com.example.fehty.project1.MenuFragments.ProfileFragment
 import com.example.fehty.project1.R
+import com.facebook.FacebookSdk
+import com.facebook.appevents.AppEventsLogger
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,14 +17,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        FacebookSdk.sdkInitialize(applicationContext)
+        AppEventsLogger.activateApp(this)
         setSupportActionBar(toolBar)
 
         replaceThisFragmentTo(ListFragment())
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         floatingActionButton.show()
 
+
         floatingActionButton.setOnClickListener {
-            replaceThisFragmentTo(AddItemFragment(this))
+            replaceThisFragmentTo(AddItemFragment())
         }
 
         profileIcon.setOnClickListener {

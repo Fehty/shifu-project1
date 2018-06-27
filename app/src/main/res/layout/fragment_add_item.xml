@@ -7,22 +7,53 @@
     tools:context=".MenuFragments.AddItemFragment">
 
     <EditText
-        android:id="@+id/addItemText"
+        android:id="@+id/addItemTitle"
         android:layout_width="@dimen/fragment_add_item_edit_text_width"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/fragment_add_item_edit_text_margin_top"
+        android:layout_marginTop="28dp"
+        android:hint="Title"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/addItemContent"
+        android:layout_width="@dimen/fragment_add_item_edit_text_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Content"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addItemTitle" />
+
+    <EditText
+        android:id="@+id/addItemLink"
+        android:layout_width="@dimen/fragment_add_item_edit_text_width"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="4dp"
+        android:hint="Link"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addItemContent"
+        app:layout_constraintVertical_bias="0.045" />
 
     <Button
         android:id="@+id/buttonAddItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="324dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:text="@string/fragment_add_item_button_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addItemText"
-        app:layout_constraintVertical_bias="0.093" />
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

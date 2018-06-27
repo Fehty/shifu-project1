@@ -4,25 +4,23 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.fehty.project1.Activity.MainActivity
 import com.example.fehty.project1.Adapter.RecyclerViewAdapter
-import com.example.fehty.project1.ItemTouchHelper.RecyclerItemTouchHelper
-import com.example.fehty.project1.ItemTouchHelper.RecyclerItemTouchHelperListener
+import com.example.fehty.project1.Poco.DataItems
 import com.example.fehty.project1.Poco.Poco
 import com.example.fehty.project1.R
 import io.realm.Realm
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_list.*
-import kotlinx.android.synthetic.main.item_template_for_list.view.*
 
-class ListFragment : Fragment(), RecyclerItemTouchHelperListener {
+class ListFragment : Fragment() {
 
     private val adapter = RecyclerViewAdapter(this)
-    //  private val list = arrayListOf("Russia", "England", "Spain", "Canada", "USA", "Egypt", "Australia", "Germany", "Portugal", "Brazil")
-    private val list = arrayListOf<String>()
+    private val list = arrayListOf<DataItems>()
     private val realm = Realm.getDefaultInstance()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -34,35 +32,29 @@ class ListFragment : Fragment(), RecyclerItemTouchHelperListener {
         super.onViewCreated(view, savedInstanceState)
 
         initList()
-
-        val itemTouchHelperCallBack = RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this)
-        ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(recyclerView)
+        //    val itemTouchHelperCallBack = RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this)
+        //    ItemTouchHelper(itemTouchHelperCallBack).attachToRecyclerView(recyclerView)
     }
 
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int, position: Int) {
-        adapter.removeItem(viewHolder.adapterPosition)
-        realm.executeTransaction {
-            //viewHolder.itemView.tag
-            realm
-                    .where(Poco::class.java)
-                    .equalTo("itemOfTheList", viewHolder.itemView.item.text.toString())
-                    .findFirst()!!
-                    .deleteFromRealm()
-        }
-    }
-
-    fun goToBackFragment() {
-        fragmentManager?.beginTransaction()
-                ?.replace(R.id.container, BackFragment())
-                ?.commit()
-    }
+    //override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int, position: Int) {
+    //    adapter.removeItem(viewHolder.adapterPosition)
+    //    realm.executeTransaction {
+    //        //viewHolder.itemView.tag
+    //        realm
+    //                .where(Poco::class.java)
+    //                .equalTo("titleOfTheList", viewHolder.itemView.itemTitle.text.toString())
+    //                .findFirst()!!
+    //                .deleteFromRealm()
+    //    }
+//    }
 
     private fun initList() {
-        val results = realm.where(Poco::class.java).findAll()
+        val results = realm.where(Poco::class.java).sort("id").findAll()
 
         if (results != null) {
             for (poco in results) {
-                list.add(poco.itemOfTheList.toString())
+                list.add(DataItems(poco.titleOfTheList.toString(), poco.id!!.toInt()))
+                Log.e("*#**#*#*#**#", "${poco.titleOfTheList} ${poco.contentOfTheList} ${poco.linkOfTheList}")
             }
         }
 
@@ -71,14 +63,44 @@ class ListFragment : Fragment(), RecyclerItemTouchHelperListener {
             addItemDecoration(DividerItemDecoration(activity, DividerItemDecoration.VERTICAL))
         }
 
+        recyclerView.adapter = adapter
+        adapter.setList(list)
+
+    }
+
+    fun changeThisFragmentTo(fragment: Fragment) {
+        fragmentManager?.beginTransaction()
+                ?.replace(R.id.container, fragment)
+                ?.commit()
+    }
+
+
+    fun removeFromRealm(title: String) {
+        realm.executeTransaction {
+            realm
+                    .where(Poco::class.java)
+                    .equalTo("titleOfTheList", title)
+                    .findFirst()!!
+                    .deleteFromRealm()
+        }
+    }
+
+    fun changeThisFragmentToAddItemFragment(pocoId: String) {
+        val addItemFragment = AddItemFragment(true, pocoId)
+        fragmentManager?.beginTransaction()
+                ?.replace(R.id.container, addItemFragment)
+                ?.commit()
+
+        val mainActivity = activity as MainActivity
+        activity!!.floatingActionButton.hide()
+        mainActivity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+    }
+
+}
+
 
 //        val bundle: Bundle?
 //        if (arguments != null) {
 //            bundle = arguments
 //            list.add(bundle!!.getString("newItem"))
 //        }
-
-        recyclerView.adapter = adapter
-        adapter.setList(list)
-    }
-}

@@ -1,19 +1,22 @@
 package com.example.fehty.project1.Adapter
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import android.widget.TextView
+import com.daimajia.swipe.SwipeLayout
 import com.example.fehty.project1.MenuFragments.ListFragment
+import com.example.fehty.project1.Poco.DataItems
 import com.example.fehty.project1.R
+import kotlinx.android.synthetic.main.item_template_for_list.view.*
 
-class RecyclerViewAdapter(var listFragment: ListFragment) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
+class RecyclerViewAdapter(var listFragment: ListFragment? = null) : RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>() {
 
-    private var list = mutableListOf<String>()
+    private var list = mutableListOf<DataItems>()
 
-    fun setList(list: MutableList<String>) {
+    fun setList(list: MutableList<DataItems>) {
         this.list = list
         notifyDataSetChanged()
     }
@@ -29,6 +32,7 @@ class RecyclerViewAdapter(var listFragment: ListFragment) : RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(list[position])
+        holder.swipeLayout.addDrag(SwipeLayout.DragEdge.Right, holder.swipeLayout.findViewById(R.id.bottomWrapper))
     }
 
     fun removeItem(position: Int) {
@@ -37,17 +41,46 @@ class RecyclerViewAdapter(var listFragment: ListFragment) : RecyclerView.Adapter
     }
 
     inner class ViewHolder(var view: View) : RecyclerView.ViewHolder(view) {
+        private var itemTitle = view.findViewById<TextView>(R.id.itemTitle)
+        var swipeLayout = view.findViewById<SwipeLayout>(R.id.swipeLayout)!!
+        var delete = view.findViewById<TextView>(R.id.delete)!!
+        var edit = view.findViewById<TextView>(R.id.edit)!!
+        fun bind(dataItems: DataItems) {
+            itemTitle.text = dataItems.itemTitle
 
-        private var item = view.findViewById<TextView>(R.id.item)
-        var viewBackground = view.findViewById<RelativeLayout>(R.id.viewBackground)!!
-        var viewForeground = view.findViewById<RelativeLayout>(R.id.viewForeground)!!
+            edit.setOnClickListener {
+                listFragment!!.changeThisFragmentToAddItemFragment(dataItems.id.toString())
+            }
 
-        fun bind(dataItem: String) {
-            item.text = dataItem
             view.setOnClickListener {
-                listFragment.goToBackFragment()
+                Log.e("*#**#*#*#**#", dataItems.id.toString())
+            }
+
+            delete.setOnClickListener {
+                removeItem(adapterPosition)
+                listFragment!!.removeFromRealm(itemView.itemTitle.text.toString())
             }
 
         }
     }
 }
+
+
+//    private var itemContent = view.findViewById<TextView>(R.id.itemContent)
+//    private var itemLink = view.findViewById<TextView>(R.id.itemLink)
+//  var viewBackground = view.findViewById<RelativeLayout>(R.id.viewBackground)!!
+//  var viewForeground = view.findViewById<RelativeLayout>(R.id.viewForeground)!!
+
+//  itemContent.text = dataItems.itemContent
+//  itemLink.text = dataItems.itemLink
+// view.setOnClickListener {
+//         listFragment.goToBackFragment()
+// }
+
+//        holder.swipeLayout.surfaceView.setOnClickListener {
+//            Toast.makeText(listFragment.context, "Clicked ", Toast.LENGTH_SHORT).show()
+//        }
+//
+//        holder.delete.setOnClickListener {
+//            listFragment.goToBackFragment()
+//        }

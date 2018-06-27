@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">Project1</string>
     <string name="activity_back_button_text">Back</string>
-    <string name="activity_template_for_list_text">First Item of this list</string>
     <string name="activity_template_for_list_background_text">Удалить</string>
     <string name="fragment_add_item_button_text">Сохранить</string>
+    <string name="activity_template_for_list_item_content">Content</string>
+    <string name="activity_template_for_list_item_title">Title</string>
+    <string name="activity_template_for_list_item_link">Link</string>
+    <string name="facebook_app_id">198809697623744</string>
+    <string name="fb_login_protocol_scheme">fb198809697623744</string>
 </resources>

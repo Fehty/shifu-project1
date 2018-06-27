@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tool="http://schemas.android.com/tools"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/viewBackground"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/bottomWrapper"
+        android:layout_width="240dp"
         android:layout_height="match_parent"
-        android:background="@color/activity_template_for_list_background_color">
+        android:weightSum="2">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/activity_template_for_list_background_margin"
-            android:fontFamily="sans-serif"
-            android:text="@string/activity_template_for_list_background_text"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/activity_template_for_list_text_size" />
-    </RelativeLayout>
+            android:id="@+id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#0076a5"
+            android:gravity="center"
+            android:text="Редактировать"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#ff0000"
+            android:gravity="center"
+            android:text="Удалить"
+            android:textColor="#fff" />
+
+    </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/viewForeground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:padding="@dimen/activity_template_for_list_foreground_padding">
+        android:background="?android:selectableItemBackground"
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/item"
-            android:layout_width="wrap_content"
+            android:id="@+id/itemTitle"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/activity_template_for_list"
-            tool:text="@string/activity_template_for_list_text" />
-
+            android:layout_marginLeft="8dp"
+            android:layout_margin="8dp"
+            android:text="Title"
+            android:textColor="@color/colorPrimary"
+            android:textSize="25sp" />
     </RelativeLayout>
-</FrameLayout>
+
+</com.daimajia.swipe.SwipeLayout>
