@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.example.fehty.project1.Activity.MainActivity
-import com.example.fehty.project1.Poco.Poco
+import com.example.fehty.project1.Poco.RealmModel
 import com.example.fehty.project1.R
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,44 +25,43 @@ class AddItemFragment(var callSetValues: Boolean = false, var pocoId: String = "
 
     private val listFragment = ListFragment()
     private val realm = Realm.getDefaultInstance()
-    private val poco = Poco()
+    private val realmModel = RealmModel()
     private var nextInt = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (callSetValues) {
-            setValues(pocoId)
-        }
+        if (callSetValues) setValues(pocoId)
+
         buttonAddItem.setOnClickListener {
 
-            if (addItemTitle.text.isNotEmpty() && addItemContent.text.isNotEmpty() && addItemLink.text.isNotEmpty()) {
+            when {
+                addItemTitle.text.isNotEmpty() && addItemContent.text.isNotEmpty() && addItemLink.text.isNotEmpty() -> {
+                    if (callSetValues) {
+                        realm.executeTransaction {
+                            val updateResult = realm.where(RealmModel::class.java).equalTo("id", pocoId.toInt()).findFirst()
 
-                if (callSetValues) {
-                    realm.executeTransaction {
-                        val updateResult = realm.where(Poco::class.java).equalTo("id", pocoId.toInt()).findFirst()
-
-                        updateResult!!.titleOfTheList = addItemTitle.text.toString()
-                        updateResult.contentOfTheList = addItemContent.text.toString()
-                        updateResult.linkOfTheList = addItemLink.text.toString()
-                    }
-                } else {
-                    realm.executeTransaction {
-                        val resultOfId = realm.where(Poco::class.java).max("id")
-                        when (resultOfId) {
-                            null -> nextInt = 1
-                            else -> nextInt = resultOfId.toInt() + 1
+                            updateResult!!.titleOfTheList = addItemTitle.text.toString()
+                            updateResult.contentOfTheList = addItemContent.text.toString()
+                            updateResult.linkOfTheList = addItemLink.text.toString()
                         }
+                    } else {
+                        realm.executeTransaction {
+                            val resultOfId = realm.where(RealmModel::class.java).max("id")
+                            when (resultOfId) {
+                                null -> nextInt = 1
+                                else -> nextInt = resultOfId.toInt() + 1
+                            }
 
-                        poco.id = nextInt
-                        poco.titleOfTheList = addItemTitle.text.toString()
-                        poco.contentOfTheList = addItemContent.text.toString()
-                        poco.linkOfTheList = addItemLink.text.toString()
+                            realmModel.id = nextInt
+                            realmModel.titleOfTheList = addItemTitle.text.toString()
+                            realmModel.contentOfTheList = addItemContent.text.toString()
+                            realmModel.linkOfTheList = addItemLink.text.toString()
 
-                        realm.insertOrUpdate(poco)
+                            realm.insertOrUpdate(realmModel)
+                        }
                     }
                 }
-
             }
 
             addItemTitle.clearFocus()
@@ -76,19 +75,17 @@ class AddItemFragment(var callSetValues: Boolean = false, var pocoId: String = "
 
     private fun setValues(pocoId: String) {
         realm.executeTransaction {
-            val result = realm.where(Poco::class.java).equalTo("id", pocoId.toInt()).findAll()
-            for (poco in result) {
-                addItemTitle.setText(poco.titleOfTheList)
-                addItemContent.setText(poco.contentOfTheList)
-                addItemLink.setText(poco.linkOfTheList)
+            val result = realm.where(RealmModel::class.java).equalTo("id", pocoId.toInt()).findAll()
+            result.forEach{
+                addItemTitle.setText(it.titleOfTheList)
+                addItemContent.setText(it.contentOfTheList)
+                addItemLink.setText(it.linkOfTheList)
             }
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (item?.itemId == android.R.id.home) {
-            exitFromAdditionItems()
-        }
+        if (item?.itemId == android.R.id.home) exitFromAdditionItems()
         return super.onOptionsItemSelected(item)
     }
 
@@ -104,8 +101,3 @@ class AddItemFragment(var callSetValues: Boolean = false, var pocoId: String = "
     }
 
 }
-
-
-//                val bundle = Bundle()
-//                bundle.putString("newItem", addItemText.text.toString())
-//                listFragment.arguments = bundle

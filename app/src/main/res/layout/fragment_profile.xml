@@ -6,24 +6,23 @@
 
     <ImageView
         android:id="@+id/userPhoto"
-        android:layout_width="309dp"
-        android:layout_height="291dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="@dimen/fragment_profile_user_photo_width"
+        android:layout_height="@dimen/fragment_profile_user_photo_height"
+        android:layout_marginEnd="@dimen/dimen_8"
+        android:layout_marginStart="@dimen/dimen_8"
+        android:layout_marginTop="@dimen/fragment_profile_user_photo_margin_top"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/fragment_profile_facebook_profile_photo" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/underPhotoUserText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="@dimen/fragment_profile_facebook_under_photo_user_text_margin_top"
         android:textColor="@color/colorPrimary"
-        android:textSize="30sp"
+        android:textSize="@dimen/fragment_profile_facebook_under_photo_user_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/underPhotoUserText"
         app:layout_constraintVertical_bias="0.274" />
 
 </android.support.constraint.ConstraintLayout>

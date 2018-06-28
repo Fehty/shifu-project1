@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/bottomWrapper"
-        android:layout_width="240dp"
+        android:id="@+id/swipeMenu"
+        android:layout_width="@dimen/item_template_for_list_swipe_menu_layout_width"
         android:layout_height="match_parent"
         android:weightSum="2">
 
@@ -16,20 +17,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#0076a5"
+            android:background="@android:color/holo_blue_dark"
             android:gravity="center"
-            android:text="Редактировать"
-            android:textColor="#fff" />
+            android:text="@string/item_template_for_list_swipe_menu_edit"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/delete"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="#ff0000"
+            android:background="@android:color/holo_red_dark"
             android:gravity="center"
-            android:text="Удалить"
-            android:textColor="#fff" />
+            android:text="@string/item_template_for_list_swipe_menu_delete"
+            android:textColor="@android:color/white" />
 
     </LinearLayout>
 
@@ -43,11 +44,10 @@
             android:id="@+id/itemTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_margin="8dp"
-            android:text="Title"
+            android:layout_margin="@dimen/dimen_8"
             android:textColor="@color/colorPrimary"
-            android:textSize="25sp" />
+            android:textSize="@dimen/item_template_for_list_item_title_text_size"
+            tools:text="@string/item_template_for_list_item_title_tools_text" />
     </RelativeLayout>
 
 </com.daimajia.swipe.SwipeLayout>

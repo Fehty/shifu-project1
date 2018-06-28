@@ -16,29 +16,26 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolBar)
 
         FacebookSdk.sdkInitialize(applicationContext)
         AppEventsLogger.activateApp(this)
-        setSupportActionBar(toolBar)
 
         replaceThisFragmentTo(ListFragment())
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        floatingActionButton.show()
 
+        floatingActionButton.setOnClickListener { replaceThisFragmentTo(AddItemFragment()) }
 
-        floatingActionButton.setOnClickListener {
-            replaceThisFragmentTo(AddItemFragment())
-        }
-
-        profileIcon.setOnClickListener {
-            replaceThisFragmentTo(ProfileFragment(this))
-        }
+        profileIcon.setOnClickListener { replaceThisFragmentTo(ProfileFragment(this)) }
     }
 
     private fun replaceThisFragmentTo(fragment: Fragment) {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        floatingActionButton.hide()
-
+        if (fragment == ListFragment()) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            floatingActionButton.show()
+        } else {
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            floatingActionButton.hide()
+        }
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit()
