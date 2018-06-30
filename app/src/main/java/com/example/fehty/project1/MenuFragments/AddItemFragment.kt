@@ -70,12 +70,11 @@ class AddItemFragment(var callSetValues: Boolean = false, var pocoId: String = "
 
             exitFromAdditionItems()
         }
-
     }
 
-    private fun setValues(pocoId: String) {
+    private fun setValues(realmModelId: String) {
         realm.executeTransaction {
-            val result = realm.where(RealmModel::class.java).equalTo("id", pocoId.toInt()).findAll()
+            val result = realm.where(RealmModel::class.java).equalTo("id", realmModelId.toInt()).findAll()
             result.forEach{
                 addItemTitle.setText(it.titleOfTheList)
                 addItemContent.setText(it.contentOfTheList)

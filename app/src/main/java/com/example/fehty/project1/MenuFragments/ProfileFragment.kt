@@ -24,7 +24,6 @@ class ProfileFragment(private val mainActivity: MainActivity?) : Fragment() {
 
     private var callbackManager = CallbackManager.Factory.create()!!
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         setHasOptionsMenu(true)
@@ -33,6 +32,7 @@ class ProfileFragment(private val mainActivity: MainActivity?) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         loginButton.setReadPermissions("email")
         loginButton.fragment = this
 
@@ -57,14 +57,15 @@ class ProfileFragment(private val mainActivity: MainActivity?) : Fragment() {
         accessTokenTracker
     }
 
+
     private var accessTokenTracker = object : AccessTokenTracker() {
         override fun onCurrentAccessTokenChanged(oldAccessToken: AccessToken?, currentAccessToken: AccessToken?) {
-            when {
-                currentAccessToken == null -> {
+            when (currentAccessToken) {
+                null -> {
                     underPhotoUserText.text = "You have logged out"
                     userPhoto.setImageResource(android.R.color.transparent)
                 }
-                currentAccessToken != null -> {
+                else -> {
                     LoginManager.getInstance().registerCallback(callbackManager,
                             object : FacebookCallback<LoginResult> {
                                 override fun onSuccess(loginResult: LoginResult) {
